@@ -1,7 +1,10 @@
-import React from 'react'
+import SignInForm from './_auth/forms/SignInForm.jsx'
+import SignUpForm from './_auth/forms/SignUpForm.jsx'
+import AuthLandingLayout from './_auth/AuthLandingLayout.jsx'
+import RootLayout from './_root/RootLayout.jsx'
 import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
-import './index.css'
+import { Home } from "./_root/pages"
+import './global.css'
 import { createBrowserRouter,RouterProvider } from 'react-router-dom'
 
 
@@ -9,7 +12,7 @@ import { createBrowserRouter,RouterProvider } from 'react-router-dom'
 
 //we can make parent routes without path to give them outlet property and make multiple layouts 
 
-const router = createBrowserRouter([
+const browserRouter = createBrowserRouter([
     {  //public routes
         element : < AuthLandingLayout />,
         children :[ 
@@ -27,7 +30,8 @@ const router = createBrowserRouter([
         element : < RootLayout />,
         children : [
             {
-
+            index : true,
+            element : < Home />
             }
         ]
 
@@ -35,7 +39,8 @@ const router = createBrowserRouter([
 ])
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-
-    <App />
-  
-)
+    <>
+        <RouterProvider router={browserRouter} />
+        
+    </>
+);
