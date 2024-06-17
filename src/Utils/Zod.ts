@@ -37,7 +37,21 @@ const signUpSchema = z.object(
         name : z.string()
         .min(3,{ message : "Name must be atleast 3 characters long" }),
 
-        username : z.string(),
+        username : z.string()
+        .min(3,{ message : "Username must be atleast 3 characters long" })
+        .regex(
+            /^(?=.*[A-Z])/,
+            {
+                message : "Username must contain atleast one uppercase letter"
+            }
+        )
+        .regex(
+            /^(?=.*\d)/,
+            {
+                message : "Username must contain atleast one digit"
+            }
+        )
+        .max(20,{ message : "Username must not exceed 20 characters" }),
 
         confirmPassword : z.string(),  
     }

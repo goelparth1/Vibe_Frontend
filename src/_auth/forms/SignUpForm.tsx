@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { Form,FormControl,FormDescription,FormField,FormItem,FormLabel,FormMessage,} from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-
+import { Link } from 'react-router-dom'
 
 type ISignUpForm = z.infer< typeof signUpSchema >
 
@@ -147,8 +147,13 @@ function SignUpForm() {
                 <div>
                     Sign Up
                 </div>
-            )
-          }</Button>
+            )}
+          </Button>
+          <p
+            className = " text-center text-vibeForm "> Already have an account? <Link
+            to = "/signIN"
+            className = "text-purple-300" >Log In</Link> 
+          </p>
         </form>
     </div>
   </Form>
