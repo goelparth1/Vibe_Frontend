@@ -31,14 +31,23 @@ const signUpSchema = z.object(
                 message : "Password must contain atleast one special character"
             }
         )
-        .min(6, "Password must be atleast 6 characters long")
-        .max(20, "Password must not exceed 20 characters"),
+        .min(6, { message :  "Password must be atleast 6 characters long" })
+        .max(20, { message : "Password must not exceed 20 characters" }),
 
         name : z.string()
-        
+        .min(3,{ message : "Name must be atleast 3 characters long" }),
+
+        username : z.string(),
+
+        confirmPassword : z.string(),  
+    }
+).refine(
+    (data) => (data.password === data.confirmPassword),
+    {
+    path : ["confirmPassword"],
+    message : "Passwords do not match",
     }
 );
-
 
 
 

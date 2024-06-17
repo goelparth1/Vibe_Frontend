@@ -24,6 +24,10 @@ module.exports = {
         inter: ['Inter', 'sans-serif'],
 
       },
+      colors: {
+       "vibeForm" : "#d8e4d4",
+       "shadInput" : "#1c1c1c"
+      },
       keyframes: {
         'accordion-down': {
           from: { height: 0 },
