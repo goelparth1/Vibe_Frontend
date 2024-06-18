@@ -6,14 +6,16 @@ import { z } from 'zod'
 import { Form,FormControl,FormDescription,FormField,FormItem,FormLabel,FormMessage,} from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Link } from 'react-router-dom'
-import { signUp } from "../../services/auth.ts";
+// import { signUp } from "../../services/auth.ts";
+import { useToast } from "@/components/ui/toaster.tsx"
+import { useSignUpMutation } from "../../lib/tanstackquery/mutations.ts"
 
-type ISignUpForm = z.infer< typeof signUpSchema >
+ export type ISignUpForm = z.infer< typeof signUpSchema >
 
 
 function SignUpForm() {
 
-    const isLoading = false;
+    const { toast } = useToast();
     const signUpForm = useForm< ISignUpForm >({
         resolver : zodResolver(signUpSchema),
         defaultValues : {
@@ -25,11 +27,10 @@ function SignUpForm() {
         },
         mode : "onBlur"
     })
-
+    const { mutateAsync : createUser , isPending : isCreatingUser } = useSignUpMutation(); 
     const onSubmit = async (data : ISignUpForm) => {
-        const user = await  signUp(data);
-        if(!user) return;
-        console.log(user);
+        return await createUser(data);
+        
 
     }
   return (
@@ -139,7 +140,7 @@ function SignUpForm() {
          <Button
           type = "submit"
           className = "bg-purple-700 my-4">{
-            isLoading ? (
+            isCreatingUser ? (
               <div 
               className = "flex justify-center items-center h-full w-full">
               <img

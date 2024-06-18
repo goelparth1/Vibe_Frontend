@@ -5,7 +5,7 @@ import AuthLandingLayout from './_auth/AuthLandingLayout.tsx'
 import RootLayout from './_root/RootLayout.tsx'
 import { Home } from "./_root/pages"
 import './globals.css'
-
+import { Toaster } from './components/ui/toaster.tsx'
 
 
 
@@ -46,6 +46,7 @@ function App() {
     <main 
     className = " h-screen flex " >
     <RouterProvider router={browserRouter} />
+    <Toaster />
     </main>
   )
 }
