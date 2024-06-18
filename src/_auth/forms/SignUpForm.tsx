@@ -6,6 +6,7 @@ import { z } from 'zod'
 import { Form,FormControl,FormDescription,FormField,FormItem,FormLabel,FormMessage,} from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Link } from 'react-router-dom'
+import { signUp } from "../../services/auth.ts";
 
 type ISignUpForm = z.infer< typeof signUpSchema >
 
@@ -25,15 +26,18 @@ function SignUpForm() {
         mode : "onBlur"
     })
 
-    const onSubmit = (data : ISignUpForm) => {
-        console.log(data);
+    const onSubmit = async (data : ISignUpForm) => {
+        const user = await  signUp(data);
+        if(!user) return;
+        console.log(user);
+
     }
   return (
     <Form {...signUpForm} >
         <div 
         className = "flex flex-col items-center justify-center px-4">
         <img 
-        src =  "/assets/images/siteLogo.svg"
+        src =  "/assets/images/logo.svg"
         alt = "logo"
         className = "h-24 rounded-3xl" />
         <h2 
