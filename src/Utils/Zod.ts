@@ -54,8 +54,18 @@ const signUpSchema = z.object(
     }
 );
 
-
+const signInSchema = z.object({
+    email : z.string().email(),
+    password : z.string()
+                .regex( 
+                    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm,
+                    {
+                        message : "Password is incorrect"
+                    }
+                )
+})
 
 export {
-    signUpSchema
+    signUpSchema,
+    signInSchema
 }

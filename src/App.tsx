@@ -6,8 +6,11 @@ import RootLayout from './_root/RootLayout.tsx'
 import { Home } from "./_root/pages"
 import './globals.css'
 import { Toaster } from './components/ui/toaster.tsx'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 
+
+const queryClient = new QueryClient()
 
 
 const browserRouter = createBrowserRouter([
@@ -39,15 +42,16 @@ const browserRouter = createBrowserRouter([
 
 
 function App() {
-  
+   
 
   return (
-   
+    <QueryClientProvider client={queryClient}>
     <main 
     className = " h-screen flex " >
     <RouterProvider router={browserRouter} />
     <Toaster />
     </main>
+    </QueryClientProvider>
   )
 }
 

@@ -7,7 +7,7 @@ import { Form,FormControl,FormDescription,FormField,FormItem,FormLabel,FormMessa
 import { Input } from "@/components/ui/input"
 import { Link } from 'react-router-dom'
 // import { signUp } from "../../services/auth.ts";
-import { useToast } from "@/components/ui/toaster.tsx"
+import { useToast } from "../../components/ui/use-toast.ts"
 import { useSignUpMutation } from "../../lib/tanstackquery/mutations.ts"
 
  export type ISignUpForm = z.infer< typeof signUpSchema >
