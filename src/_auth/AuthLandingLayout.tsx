@@ -1,11 +1,13 @@
 import React from 'react'
 import { Outlet,Navigate } from "react-router-dom"
+import App from '../App.tsx'
 
 function AuthLandingLayout() {
 
   const isAuthenticated = false ;
   return (
-    <>
+
+      <>
     { 
     isAuthenticated ? (
         <Navigate to="/" />

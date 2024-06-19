@@ -9,12 +9,15 @@ import { Link } from 'react-router-dom'
 // import { signUp } from "../../services/auth.ts";
 import { useToast } from "../../components/ui/use-toast.ts"
 import { useSignUpMutation } from "../../lib/tanstackquery/mutations.ts"
+import { useNavigate } from "react-router-dom"
+import {useUserContext} from "../../context/userContext/UserContext.tsx"
 
  export type ISignUpForm = z.infer< typeof signUpSchema >
 
 
 function SignUpForm() {
-
+    const navigate = useNavigate();
+    const { getUserDetailsandAuthStatus, isLoading : isUserLoading } = useUserContext();
     const { toast } = useToast();
     const signUpForm = useForm< ISignUpForm >({
         resolver : zodResolver(signUpSchema),
@@ -29,10 +32,48 @@ function SignUpForm() {
     })
     const { mutateAsync : createUser , isPending : isCreatingUser } = useSignUpMutation(); 
     const onSubmit = async (data : ISignUpForm) => {
-        return await createUser(data);
+         try{
+          const user = await createUser(data);
+          if(!user){
+            toast({
+              title : "Sign Up Failed",
+            })
+          }
+         }catch(err:any){
+          if(err.response.status === 489){
+            toast({
+              title : "User Already Exists",
+            })
+            setTimeout(()=>{
+            //  isLoading = false;
+             navigate("/signIn");
+            
+            },1000)
+         } }
+        //  console.log("I am here", "isUserLoggedIn")
+         //now we have cookies from the backend 
+         //so we can redirect the user to the home page and set user context
+        const isUserLoggedIn = await getUserDetailsandAuthStatus();
+         console.log( isUserLoggedIn, "isUserLoggedIn")
+        if(isUserLoggedIn){
+          signUpForm.reset();
+          console.log("I am here")
+          toast({
+            title : "User Successfully created! Redirecting to Home Page",
+          })
+          navigate("/");
+          
         
+        }else{
+          signUpForm.reset();
+         
+        }
 
-    }
+         
+    
+  }
+
+    
   return (
     <Form {...signUpForm} >
         <div 
@@ -140,7 +181,7 @@ function SignUpForm() {
          <Button
           type = "submit"
           className = "bg-purple-700 my-4">{
-            isCreatingUser ? (
+            isCreatingUser || isUserLoading? (
               <div 
               className = "flex justify-center items-center h-full w-full">
               <img
@@ -167,4 +208,4 @@ function SignUpForm() {
   )
 }
 
-export default SignUpForm
+export default SignUpForm;

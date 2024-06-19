@@ -3,8 +3,10 @@ import Header from './components/Header.tsx'
 import SideBar from './components/SideBar.tsx'
 import Footer from './components/Footer.tsx'
 import { Outlet } from 'react-router-dom'
+import App from '../App.tsx'
 function RootLayout() {
   return (
+    
     <div
     className = "w-full md:flex">
     <Header />
@@ -15,6 +17,7 @@ function RootLayout() {
     </section>
     <Footer />
     </div>
+
   )
 }
 
