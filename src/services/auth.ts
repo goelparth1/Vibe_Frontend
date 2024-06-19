@@ -26,7 +26,9 @@ export const signIn = async (data : {
 }) =>{
     try {
         const response = await axios.post(`${import.meta.env.VITE_USER_URL}/login`, data);
-        return await response.data;
+
+        console.log("this is responsedata " ,response.data);
+        return await response.data.data.accessToken;
     }catch(err){
         throw err;
     }
