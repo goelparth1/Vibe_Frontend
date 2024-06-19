@@ -11,6 +11,7 @@ import { useToast } from "../../components/ui/use-toast.ts"
 import { useSignUpMutation } from "../../lib/tanstackquery/mutations.ts"
 import { useNavigate } from "react-router-dom"
 import {useUserContext} from "../../context/userContext/UserContext.tsx"
+import { useEffect } from "react"
 
  export type ISignUpForm = z.infer< typeof signUpSchema >
 
@@ -33,12 +34,15 @@ function SignUpForm() {
     const { mutateAsync : createUser , isPending : isCreatingUser } = useSignUpMutation(); 
     const onSubmit = async (data : ISignUpForm) => {
          try{
-          const user = await createUser(data);
-          if(!user){
-            toast({
-              title : "Sign Up Failed",
-            })
-          }
+          const accessToken = await createUser(data);
+          // if(!user){
+          //   toast({
+          //     title : "Sign Up Failed",
+          //   })
+          // }
+
+          console.log("This is User " , accessToken);
+          localStorage.setItem("accessToken", accessToken);
          }catch(err:any){
           if(err.response.status === 489){
             toast({
@@ -50,6 +54,8 @@ function SignUpForm() {
             
             },1000)
          } }
+         //accessToken
+        
         //  console.log("I am here", "isUserLoggedIn")
          //now we have cookies from the backend 
          //so we can redirect the user to the home page and set user context
@@ -61,6 +67,7 @@ function SignUpForm() {
           toast({
             title : "User Successfully created! Redirecting to Home Page",
           })
+          // setTimeout(()=>{},1000)
           navigate("/");
           
         
@@ -72,6 +79,11 @@ function SignUpForm() {
          
     
   }
+
+
+   //abhi ke liye we won't check about malicious cookies
+    //will check for that later
+
 
     
   return (

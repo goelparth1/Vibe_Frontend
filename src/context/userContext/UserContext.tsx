@@ -84,11 +84,14 @@ export const UserContext = createContext<IuserContext>(initialContext);
     }
       const navigate = useNavigate();
     useEffect(()=>{
-       const bool =   getUserDetailsandAuthStatus();
+
+        if(localStorage.getItem("accessToken") === undefined||null){
+            navigate("/signIn");
+         }
+         //now since accessToken there will update user at every referesh
+      getUserDetailsandAuthStatus();
        //will throw error if cookies are not set or expired
-       if(!bool){
-        navigate("/login");
-       }
+      
 
     },[])
     return (
