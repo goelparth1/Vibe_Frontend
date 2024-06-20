@@ -79,3 +79,7 @@ export const signOut = async () => {
   localStorage.removeItem("accessToken");
 }
 }
+
+export const getUsers = async({limit}) => {
+  
+} 

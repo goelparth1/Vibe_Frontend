@@ -7,7 +7,7 @@ import {
 import { QUERY_KEYS } from "./queryKeys.ts";
 import type { TsignUpForm } from "../../type.d.ts";
 import { signIn, signUp ,signOut } from "../../services/auth.ts";
-import { createPost } from "../../services/post.ts";
+import { createPost,getRecentPosts } from "../../services/post.ts";
 import { INewPost } from "@/types/index.ts";
 
 
@@ -49,3 +49,16 @@ export const useCreatePostMutation = () => {
 //         mutationFn : () => useUpdatePost(),
 // })
 // }
+export const useGetRecentPosts = () => {
+    return useQuery({
+      queryKey: [QUERY_KEYS.GET_RECENT_POSTS],
+      queryFn: getRecentPosts,
+    });
+  };
+
+ export const useGetUsers = (limit?: number) => {
+    return useQuery({
+      queryKey: [QUERY_KEYS.GET_USERS],
+      queryFn: () => getUsers(limit),
+    });
+  };
