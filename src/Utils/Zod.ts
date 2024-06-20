@@ -65,7 +65,16 @@ const signInSchema = z.object({
                 )
 })
 
+const PostSchema = z.object({
+    caption: z.string().min(5, { message: "Minimum 5 characters required for a caption." }).max(2200, { message: "Maximum 2,200 caracters are allowed for a caption" }),
+    file: z.custom<File[]>(),//File[] is not a primitive type so we have to use custom and File[] is from Headers gloabally declared by node
+    location: z.string().min(1, { message: "This field is required" }).max(1000, { message: "Maximum 1000 characters." }),
+    tags: z.string(),
+  });
+  
+
 export {
     signUpSchema,
-    signInSchema
+    signInSchema,
+    PostSchema
 }
