@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import type {TUser as IUser} from "../../type.d.ts";    
 import { getUser } from "@/services/auth.ts";
 
-const initialContext = {
+export const initialContext = {
     user : {
         _id : undefined,
         name : "",
@@ -61,15 +61,17 @@ export const UserContext = createContext<IuserContext>(initialContext);
         //     setIsLoading(false);
         // })
         try{
-            const data = await getUser();
+            const data : any = await getUser();
+            console.log(data,"data inside getUserDetailsandAuthStatus")
             const toSetData = {
-                name : data.name,
-                username : data.username,
-                email : data.email,
-                avatar : data.avatar,
-                bio : data.bio,
-                _id : data._id, 
+                name : data.data.name,
+                username : data.data.username,
+                email : data.data.email,
+                avatar : data.data.avatar,
+                bio : data.data.bio,
+                _id : data.data._id, 
              }
+             console.log(toSetData,"toSetData");
              setUser(toSetData);
              setIsSignedIn(true);
              return (true);

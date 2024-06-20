@@ -62,3 +62,20 @@ export const getUser = async () : Promise<TUser>=> {
          throw err;
    }
 }
+
+export const signOut = async () => {
+  try{
+    console.log("I am here inside signOut")
+   const response = await axios.get(`${import.meta.env.VITE_USER_URL}/logout`,{
+    withCredentials : true,
+    headers : {
+      "Authorization" : `Bearer ${localStorage.getItem("accessToken")}`
+    }
+   })
+   console.log(response);
+}catch(err){
+   console.log(err,"this is error");
+}finally{
+  localStorage.removeItem("accessToken");
+}
+}
