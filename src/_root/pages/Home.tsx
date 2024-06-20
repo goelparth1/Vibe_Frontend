@@ -1,7 +1,7 @@
 
 import  PostCard  from "../components/PostCard";
-import  UserCard  from "./UserCard";
-import { useGetRecentPosts,useGetUsers } from "../../lib/tanstackquery/mutations";
+// import  UserCard  from "./UserCard";
+import { useGetRecentPosts } from "../../lib/tanstackquery/mutations";
 
 const Home = () => {
   // const { toast } = useToast();
@@ -11,13 +11,9 @@ const Home = () => {
     isPending: isPostLoading,
     isError: isErrorPosts,
   } = useGetRecentPosts();
-  const {
-    data: creators,
-    isPending: isUserLoading,
-    isError: isErrorCreators,
-  } = useGetUsers(10);
-
-  if (isErrorPosts || isErrorCreators) {
+ 
+console.log(posts);
+  if (isErrorPosts ) {
     return (
       <div className="flex flex-1">
         <div className="home-container">
@@ -51,25 +47,9 @@ const Home = () => {
           )}
         </div>
       </div>
-
-      <div className="home-creators">
-        <h3 className="h3-bold text-light-1">Top Creators</h3>
-        {isUserLoading && !creators ? (
-          <img
-          src = "/assets/images/Loading.svg"
-          alt = 'loading' 
-          className = ' h-full object-cover ml-1 '/>
-        ) : (
-          <ul className="grid 2xl:grid-cols-2 gap-6">
-            {creators?.documents.map((creator:any) => (
-              <li key={creator._id!}>
-                <UserCard user={creator} />
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
     </div>
+
+      
   );
 };
 
