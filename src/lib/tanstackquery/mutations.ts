@@ -4,6 +4,7 @@ import {
     useQueryClient,
     useInfiniteQuery,
   } from "@tanstack/react-query";
+import { QUERY_KEYS } from "./queryKeys.ts";
 import type { TsignUpForm } from "../../type.d.ts";
 import { signIn, signUp ,signOut } from "../../services/auth.ts";
 import { createPost } from "../../services/post.ts";
@@ -34,9 +35,14 @@ export const useSignOutMutation = () => {
 export const useCreatePostMutation = () => {
     const queryClient = useQueryClient();
     return useMutation({
-        mutationFn : (val:INewPost) => createPost(val),
-    })
-}
+      mutationFn: (post: INewPost) => createPost(post),
+      onSuccess: () => {
+        queryClient.invalidateQueries({
+          queryKey: [QUERY_KEYS.GET_RECENT_POSTS],
+        });
+      },
+    });
+  };
 
 // export const useUpdatePostMutation = () => {
 //     return useMutation({
