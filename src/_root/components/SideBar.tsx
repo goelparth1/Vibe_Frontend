@@ -18,7 +18,7 @@ const LeftSidebar = () => {
     signOut();
     setIsSignedIn(false);
     setUser(initialContext.user);
-    navigate("/sign-in");
+    navigate("/signIn");
   };
 
   return (
@@ -58,7 +58,7 @@ const LeftSidebar = () => {
             return (
               <li
                 key={link.label}
-                className={`leftsidebar-link group`}>
+                className={`leftsidebar-link group `}>
                 <NavLink
                   to={link.route}
                   className = {({isActive}) =>
@@ -66,10 +66,10 @@ const LeftSidebar = () => {
               }
 >
                   <img
-                    src={link.imgUrl}
+                    src={ user.avatar||link.imgUrl}
                     alt={link.label}
                     className= {
-                    `group-hover:invert-white flex  items-center p-4  `
+                    `group-hover:invert-white flex  items-center p-4 ${link.label} `
                 }
                   />
                   {link.label}

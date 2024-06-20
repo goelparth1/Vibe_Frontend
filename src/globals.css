@@ -79,8 +79,9 @@
   .active img{
     @apply invert brightness-0 transition;
   }
-
-
+  img.Messanger{
+    @apply h-16 -translate-y-1;
+  }
   .flex-between {
     @apply flex justify-between items-center;
   }

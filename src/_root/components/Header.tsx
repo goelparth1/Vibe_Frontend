@@ -44,7 +44,7 @@ function Header() {
           </Button>
           <Link to={`/profile/${user._id}`} className="flex-center gap-3">
             <img
-              src= "/assets/images/siteLogo.svg"
+              src= {user.avatar || "/assets/icons/profile-placeholder.svg"}
               alt="profile"
               className="h-full w- rounded-full"
             />
