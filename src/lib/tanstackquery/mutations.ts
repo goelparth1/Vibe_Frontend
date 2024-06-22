@@ -36,11 +36,11 @@ export const useCreatePostMutation = () => {
     const queryClient = useQueryClient();
     return useMutation({
       mutationFn: (post: INewPost) => createPost(post),
-      onSuccess: () => {
-        queryClient.invalidateQueries({
-          queryKey: [QUERY_KEYS.GET_RECENT_POSTS],
-        });
-      },
+      // onSuccess: () => {
+      //   queryClient.invalidateQueries({
+      //     queryKey: [QUERY_KEYS.GET_RECENT_POSTS],
+      //   });
+      // },
     });
   };
 
@@ -56,9 +56,9 @@ export const useGetRecentPosts = () => {
     });
   };
 
- export const useGetUsers = (limit?: number) => {
-    return useQuery({
-      queryKey: [QUERY_KEYS.GET_USERS],
-      queryFn: () => getUsers(limit),
-    });
-  };
+//  export const useGetUsers = (limit?: number) => {
+//     return useQuery({
+//       queryKey: [QUERY_KEYS.GET_USERS],
+//       queryFn: () => getUsers(limit),
+//     });
+//   };

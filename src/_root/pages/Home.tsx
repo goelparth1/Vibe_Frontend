@@ -12,7 +12,6 @@ const Home = () => {
     isError: isErrorPosts,
   } = useGetRecentPosts();
  
-console.log(posts);
   if (isErrorPosts ) {
     return (
       <div className="flex flex-1">
@@ -24,6 +23,9 @@ console.log(posts);
         </div>
       </div>
     );
+  }
+  if(posts){
+    console.log(posts.data)
   }
 
   return (
@@ -38,7 +40,7 @@ console.log(posts);
             className = ' h-full object-cover ml-1 '/>
           ) : (
             <ul className="flex flex-col flex-1 gap-9 w-full ">
-              {posts.map((post: any) => (
+              {posts.data.map((post: any) => (
                 <li key={post._id} className="flex justify-center w-full">
                   <PostCard post={post} />
                 </li>
